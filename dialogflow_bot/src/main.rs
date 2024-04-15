@@ -152,6 +152,7 @@ async fn main() -> Result< (), Box< dyn std::error::Error > >
           {
             if let Some( text_string ) = text.as_str() 
             {
+              println!( "Send from audio \"Who are you?\"" );
               println!( "Response -> {}", text_string );
             }
           }
@@ -180,7 +181,7 @@ async fn main() -> Result< (), Box< dyn std::error::Error > >
       break; 
     }
 
-    //let text = " From an economic point of view, the term What types of activities does the term business cover? ";
+    //let text = " From an economic point of view, what types of activities does the term business cover? ";
 
     // Construct the request body for text input
     let body = format!
