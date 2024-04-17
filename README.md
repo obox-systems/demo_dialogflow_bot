@@ -2,6 +2,7 @@
 
 ### Abstract
 
+
 This program interacts with the Dialogflow API to process voice and text inputs and receive corresponding responses from the chatbot.
 A chatbot is a trained special NLP model using Vertex AI.
 Bot trained on this small data (just for example)
