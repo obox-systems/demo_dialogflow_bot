@@ -65,4 +65,4 @@ It will display the responses received from Dialogflow.
 
 ### Screenshot or gif
 
-![Снимок экрана 2024-04-15 230035](https://github.com/obox-systems/demo_dialogflow_bot/assets/104863923/20761561-acde-43be-8fe3-169c178ca879)
+![alt text](image.png)

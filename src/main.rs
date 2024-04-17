@@ -20,12 +20,13 @@ struct QueryResult {
     response_messages: Vec<ResponseMessage>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Default)]
 struct ResponseMessage {
+    #[serde(default)]
     text: Text,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Default)]
 struct Text {
     text: Vec<String>,
 }
@@ -167,7 +168,7 @@ impl APIClient {
 
             for message in &response.query_result.response_messages {
                 for text in &message.text.text {
-                    println!("Send from audio \"Who are you?\"");
+                    println!("\nSend from audio \"Who are you?\"");
                     println!("Response -> {}", text);
                 }
             }
@@ -206,13 +207,14 @@ impl APIClient {
         // Handle the response
         if response.status().is_success() {
             let response_body = response.text().await?;
+
             // Deserialize the response
             let response: Response = serde_json::from_str(&response_body)?;
 
             // Text processing
             for message in &response.query_result.response_messages {
                 for text in &message.text.text {
-                    println!("Response -> {}", text);
+                    println!("\nResponse -> {}", text);
                 }
             }
         } else {
@@ -231,7 +233,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .await?;
 
     loop {
-        println!("Select an option:");
+        println!("\nSelect an option:");
         println!("1. Send voice input");
         println!("2. Send text input");
         println!("3. Exit");
