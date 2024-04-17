@@ -226,24 +226,37 @@ impl APIClient {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut new_client = APIClient::new();
-    new_client.refresh_access_token( "1//09bTZybaA1m24CgYIARAAGAkSNwF-L9IrYIYLsjBcmUZZ8JgOHaDNSiSc9c5wLiGMDt8ICtn_UJ3bmCex0X03cX7kGwTy5fnmrak" ).await?;
+    new_client
+        .refresh_access_token("1//09bTZybaA1m24CgYIARAAGAkSNwF-L9IrYIYLsjBcmUZZ8JgOHaDNSiSc9c5wLiGMDt8ICtn_UJ3bmCex0X03cX7kGwTy5fnmrak")
+        .await?;
 
-    new_client.send_voice("../for_bot.flac").await?;
-
-    // ### from text
     loop {
-        let mut input = String::new();
+        println!("Select an option:");
+        println!("1. Send voice input");
+        println!("2. Send text input");
+        println!("3. Exit");
 
-        println!("Enter your question: ");
-        io::stdin().read_line(&mut input)?;
+        let mut choice = String::new();
+        io::stdin().read_line(&mut choice)?;
 
-        let text = input.trim();
-
-        if text.to_lowercase() == "exit" {
-            break;
+        match choice.trim() {
+            "1" => {
+                println!("Enter the path to the audio file:");
+                let mut path = String::new();
+                io::stdin().read_line(&mut path)?;
+                let path = path.trim();
+                new_client.send_voice(path).await?;
+            }
+            "2" => {
+                println!("Enter your question:");
+                let mut input = String::new();
+                io::stdin().read_line(&mut input)?;
+                let text = input.trim();
+                new_client.send_text(text).await?;
+            }
+            "3" => break,
+            _ => println!("Invalid option! Please choose again."),
         }
-
-        new_client.send_text(text).await?;
     }
 
     Ok(())
